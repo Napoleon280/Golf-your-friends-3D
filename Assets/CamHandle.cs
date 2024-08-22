@@ -16,15 +16,18 @@ public class CamHandle : NetworkBehaviour
     {
         if (!networkObject.IsOwner)
         {
-            Destroy(gameObject);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!networkObject.IsOwner)
+        {
+            return;
+        }
         AngleH += Input.GetAxis("Mouse X");
         CurrentDist += -10*Input.GetAxis("Mouse ScrollWheel");
         if (Input.GetMouseButton(0)) { return; }
@@ -34,6 +37,10 @@ public class CamHandle : NetworkBehaviour
 
     public void LateUpdate()
     {
+        if (!networkObject.IsOwner)
+        {
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.C))
         {

@@ -17,15 +17,15 @@ public class HitHandle : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!networkObject.IsOwner)
-        {
-            Destroy(gameObject);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!networkObject.IsOwner)
+        {
+            return;
+        }
         //Debug.Log("Power: " + Power);
         if (Input.GetMouseButton(0))
             Power -= Input.GetAxis("Mouse Y");
@@ -38,6 +38,10 @@ public class HitHandle : NetworkBehaviour
     [ServerRpc]
     public void HitServerRpc(float angleH, float angleV, float power)
     {
+        if (!networkObject.IsOwner)
+        {
+            return;
+        }
         ball.GetComponent<Rigidbody>().AddForce(
             new Vector3(
                 Mathf.Cos(angleH * (Mathf.PI / 180)) *
