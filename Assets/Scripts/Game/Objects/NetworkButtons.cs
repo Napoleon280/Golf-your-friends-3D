@@ -42,6 +42,8 @@ namespace Game.Objects
                 // Si on est dans le menu, on a acces au bouton pour etre client
                 if (Variable.SceneCurrent == Scenes.Menu)
                 {
+                    GUILayout.TextField("Pseudo");
+                    ServerConnection.PlayerName = GUILayout.TextField(ServerConnection.PlayerName, new []{GUILayout.Width(200)});
                     GUILayout.TextField("IP");
                     _ip = GUILayout.TextField(_ip, new []{GUILayout.Width(200)});
                     transport.ConnectionData.Address = _ip;

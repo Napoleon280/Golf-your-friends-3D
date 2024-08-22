@@ -6,7 +6,7 @@ public class HitHandle : NetworkBehaviour
 {
     public NetworkObject networkObject;
     public Transform ball;
-    public uint playerId;
+    public ServerConnection servCo;
     private float _power;
     public float Power { 
         get => _power;
@@ -47,7 +47,7 @@ public class HitHandle : NetworkBehaviour
                 Mathf.Sin(angleV * (Mathf.PI / 180)) * power * -10
             ), ForceMode.Impulse
         );
-        Game.ServerGameHandling.BallHitServerRpc(playerId);
+        servCo.BallHitServerRpc();
     }
     
     

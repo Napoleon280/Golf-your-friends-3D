@@ -39,5 +39,6 @@ namespace Game
             Variable.DictPlayerScorePerHole[playerId][Variable.CurrentHole] += 1;
             Debug.Log("[SERVER]Player " + playerId + " score: " + Variable.DictPlayerScorePerHole[playerId][Variable.CurrentHole]);
         }
+        
     }
 }
