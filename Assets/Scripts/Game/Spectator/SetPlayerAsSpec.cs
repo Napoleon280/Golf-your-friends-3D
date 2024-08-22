@@ -1,10 +1,20 @@
 using Unity.Netcode;
 
-public class SetPlayerAsSpec
+namespace Game.Spectator
 {
-    [ServerRpc]
-    void SetSpecServerRpc(int playerId)
+    public class SetPlayerAsSpec
     {
-        //TODO : dispawn player's ball, set player as freecam
+        [ServerRpc]
+        void SetSpecServerRpc(int playerId)
+        {
+            //TODO : dispawn player's ball (via object sync), set player as freecam (via RPC)
+        }
+        
+        [ClientRpc]
+        void SetSpecClientRpc(int playerId)
+        {
+            //TODO : set player's cam as freecam (enable movement, disable ball looking, disable freetime limit?, )
+        }
+        
     }
 }
