@@ -16,9 +16,13 @@ public class CamHandle : NetworkBehaviour
     {
         if (!networkObject.IsOwner)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            gameObject.GetComponent<Camera>().enabled = false;
+            gameObject.GetComponent<AudioListener>().enabled = false;
+            return;
         }
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     // Update is called once per frame
