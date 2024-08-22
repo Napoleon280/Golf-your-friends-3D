@@ -7,10 +7,10 @@ public class CamHandle : NetworkBehaviour
 {
     public NetworkObject networkObject;
     public Transform ball;
-    public float minDist;
     public static bool freeCam;
-
-    public float CurrentDist, MaxDist, TranslateSpeed, AngleH, AngleV;
+    public float sensitivity;
+    public float maxDist;
+    public float CurrentDist, AngleH, AngleV;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,14 +28,15 @@ public class CamHandle : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!networkObject.IsOwner)
-        {
-            return;
-        }
+        if (!networkObject.IsOwner) return;
         AngleH -= Input.GetAxis("Mouse X");
         CurrentDist += -10*Input.GetAxis("Mouse ScrollWheel");
-        if (Input.GetMouseButton(0)) { return; }
+        if (CurrentDist < 0) CurrentDist = 0;
+        if (CurrentDist > maxDist) CurrentDist = maxDist;
+        if (Input.GetMouseButton(0)) return;
         AngleV -= Input.GetAxis("Mouse Y");
+        if (AngleV < 0) AngleV = 0;
+        if (AngleV > 90) AngleV = 90;
     }
     
 
