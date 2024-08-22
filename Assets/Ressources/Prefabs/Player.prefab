@@ -111,7 +111,7 @@ MonoBehaviour:
   minDist: 10
   CurrentDist: 15
   MaxDist: 25
-  TranslateSpeed: 100
+  TranslateSpeed: 10
   AngleH: 0
   AngleV: 0
 --- !u!114 &5573870678708412068
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkObject: {fileID: 6666115323047701113}
   ball: {fileID: 4511494888520205100}
-  Power: 0
+  servCo: {fileID: 4923120025603184466}
 --- !u!1 &6670899196515078458
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 4100979630277759509}
   - component: {fileID: 6666115323047701113}
   - component: {fileID: 3801437237252610524}
+  - component: {fileID: 4923120025603184466}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -194,6 +195,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26f48862f40052f5f964ebd768c99e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4923120025603184466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670899196515078458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5c7b17b418ee337816f3dad6d856ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &3448425622400201109
