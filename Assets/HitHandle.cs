@@ -38,17 +38,11 @@ public class HitHandle : NetworkBehaviour
     [ServerRpc]
     public void HitServerRpc(float angleH, float angleV, float power)
     {
-        if (!networkObject.IsOwner)
-        {
-            return;
-        }
         ball.GetComponent<Rigidbody>().AddForce(
             new Vector3(
-                Mathf.Cos(angleH * (Mathf.PI / 180)) *
-                Mathf.Sin(angleV * (Mathf.PI / 180)) * power * -10,
+                Mathf.Cos(angleH * (Mathf.PI / 180)) * power * 10,
                 0,
-                Mathf.Sin(angleH * (Mathf.PI / 180)) *
-                Mathf.Sin(angleV * (Mathf.PI / 180)) * power * -10
+                Mathf.Sin(angleH * (Mathf.PI / 180)) * power * 10
             ), ForceMode.Impulse
         );
         Debug.Log($"[SERVER] Ball hit, power {power}, made by :");
