@@ -23,7 +23,7 @@ public class CamHandle : NetworkBehaviour
     void Update()
     {
         AngleH += Input.GetAxis("Mouse X");
-        CurrentDist += -Input.GetAxis("Mouse ScrollWheel");
+        CurrentDist += -10*Input.GetAxis("Mouse ScrollWheel");
         if (Input.GetMouseButton(0)) { return; }
         AngleV -= Input.GetAxis("Mouse Y");
     }
@@ -31,11 +31,8 @@ public class CamHandle : NetworkBehaviour
 
     public void LateUpdate()
     {
-        Vector3 tmp;
-        tmp.x = (Mathf.Cos(AngleH * (Mathf.PI / 180)) * Mathf.Sin(AngleV * (Mathf.PI / 180)) * CurrentDist + ball.position.x);
-        tmp.z = (Mathf.Sin(AngleH * (Mathf.PI / 180)) * Mathf.Sin(AngleV * (Mathf.PI / 180)) * CurrentDist + ball.position.z);
-        tmp.y = Mathf.Sin(AngleV * (Mathf.PI / 180)) * CurrentDist + ball.position.y;
-        transform.position = Vector3.Slerp(transform.position, tmp, TranslateSpeed * Time.deltaTime);
+        Vector3 tmp = Quaternion.Euler(0,AngleH,AngleV) * (new Vector3(-CurrentDist, 0, 0)) + ball.position;
+        transform.position = tmp;
         transform.LookAt(ball);
     }
 }
