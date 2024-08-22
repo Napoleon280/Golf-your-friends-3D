@@ -32,7 +32,7 @@ public class CamHandle : NetworkBehaviour
         {
             return;
         }
-        AngleH += Input.GetAxis("Mouse X");
+        AngleH -= Input.GetAxis("Mouse X");
         CurrentDist += -10*Input.GetAxis("Mouse ScrollWheel");
         if (Input.GetMouseButton(0)) { return; }
         AngleV -= Input.GetAxis("Mouse Y");
@@ -73,7 +73,7 @@ public class CamHandle : NetworkBehaviour
             
             return;
         }
-        Vector3 tmp = Quaternion.Euler(0,AngleH,AngleV) * (new Vector3(-CurrentDist, 0, 0)) + ball.position;
+        Vector3 tmp = Quaternion.Euler(0,-AngleH,AngleV) * (new Vector3(-CurrentDist, 0, 0)) + ball.position;
         transform.position = tmp;
         transform.LookAt(ball);
     }

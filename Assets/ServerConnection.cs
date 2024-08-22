@@ -50,7 +50,6 @@ public class ServerConnection : NetworkBehaviour
             return;
         }
         uint id = (uint)Variable.DictPlayersId.Count;
-        PlayerId = id;
         Variable.DictPlayersId[playerName] = id;
         Variable.DictPlayerScorePerHole[id] = new Dictionary<uint, uint>() {[Variable.CurrentHole] = 0};
         SetPlayerIdClientRpc(id);
