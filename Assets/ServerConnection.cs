@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class ServerConnection : NetworkBehaviour
 {
-    public string PlayerName = "";
+    public static string PlayerName = "";
     public NetworkObject networkObj;
 
     public uint? PlayerId;
