@@ -10,7 +10,7 @@ public class ServerConnection : NetworkBehaviour
     public static string PlayerName = "";
     public NetworkObject networkObj;
 
-    public static uint? PlayerId;
+    public uint? PlayerId;
     // Start is called before the first frame update
     void Start()
     {
