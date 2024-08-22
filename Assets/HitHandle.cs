@@ -52,6 +52,7 @@ public class HitHandle : NetworkBehaviour
             ), ForceMode.Impulse
         );
         servCo.BallHitServerRpc();
+        Debug.Log($"{servCo.PlayerId}Ball hit");
     }
     
     
