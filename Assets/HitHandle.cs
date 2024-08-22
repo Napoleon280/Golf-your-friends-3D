@@ -30,7 +30,7 @@ public class HitHandle : NetworkBehaviour
         if (Input.GetMouseButton(0))
             Power -= Input.GetAxis("Mouse Y");
         if (!Input.GetMouseButtonUp(0)) return; //TODO : qppeler la fonction cote serveur, pas ici
-        Debug.Log(Power);
+        Debug.Log($"[CLIENT] player id ({servCo.PlayerId}) : sending ball hit with power {Power}");
         HitServerRpc(gameObject.GetComponent<CamHandle>().AngleH, gameObject.GetComponent<CamHandle>().AngleV, Power);
         
     }
@@ -51,8 +51,8 @@ public class HitHandle : NetworkBehaviour
                 Mathf.Sin(angleV * (Mathf.PI / 180)) * power * -10
             ), ForceMode.Impulse
         );
+        Debug.Log($"[SERVER] Ball hit, power {power}, made by :");
         servCo.BallHitServerRpc();
-        Debug.Log($"{servCo.PlayerId}Ball hit");
     }
     
     
