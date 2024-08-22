@@ -8,7 +8,6 @@ public class CamHandle : NetworkBehaviour
     public float minDist;
 
     public float CurrentDist, MaxDist, TranslateSpeed, AngleH, AngleV;
-    public static float sAngleH { get; set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +26,6 @@ public class CamHandle : NetworkBehaviour
         CurrentDist += -Input.GetAxis("Mouse ScrollWheel");
         if (Input.GetMouseButton(0)) { return; }
         AngleV -= Input.GetAxis("Mouse Y");
-        sAngleH = AngleH;
     }
     
 
