@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using Game;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ServerConnection : NetworkBehaviour
 {
     public static string PlayerName = "";
-    private static NetworkObject _networkObject;
+    public NetworkObject networkObj;
 
     public static uint? PlayerId;
     // Start is called before the first frame update
     void Start()
     {
-        if (!_networkObject.IsOwner)
+        if (!networkObj.IsOwner)
         {
             return;
         }
@@ -23,7 +24,7 @@ public class ServerConnection : NetworkBehaviour
     [ClientRpc]
     public void SetPlayerIdClientRpc(uint id)
     {
-        if (!_networkObject.IsOwner)
+        if (!networkObj.IsOwner)
         {
             return;
         }
@@ -33,7 +34,7 @@ public class ServerConnection : NetworkBehaviour
     [ClientRpc]
     public void NameTakenOrInvalidClientRpc()
     {
-        if (!_networkObject.IsOwner)
+        if (!networkObj.IsOwner)
         {
             return;
         }
