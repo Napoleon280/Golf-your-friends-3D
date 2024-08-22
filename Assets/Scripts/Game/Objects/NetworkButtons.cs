@@ -1,11 +1,10 @@
 using Custom_scenes;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using Game;
-using Unity.Netcode.Transports.UTP;
 
-
-namespace Network.UI.Buttons
+namespace Game.Objects
 {
     /// <summary>
     /// Classe gerant les boutons lies au multijoueur
@@ -30,30 +29,19 @@ namespace Network.UI.Buttons
             // Si on est pas client ni host
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsHost)
             {
-                // Si on est au bureau, on a acces au bouton pour host 
-                /*if (Variable.SceneNameCurrent.IsDesk())
-                {*/
-                    if (GUILayout.Button("Host"))
-                    {
-                        //Debug.Log(Scenes.Map);
-                        CustomManager.ChangeScene("Map");
-                        
-                        NetworkManager.Singleton.StartHost();
-                    }
-
-                    if (GUILayout.Button("Client"))
-                    {
-                        NetworkManager.Singleton.StartClient();
-                    }/*
-                }*/
+                // Acces au bouton pour host 
+                if (GUILayout.Button("Host"))
+                {
+                    //Debug.Log(Scenes.Map);
+                    CustomManager.ChangeScene("Map");
+                    ServerGameHandling.Initializing();
+                    ServerGameHandling.StartGameServerRpc();
+                    NetworkManager.Singleton.StartHost();
+                }
 
                 // Si on est dans le menu, on a acces au bouton pour etre client
                 if (Variable.SceneCurrent == Scenes.Menu)
                 {
-                    /*if (GUILayout.Button("Client"))
-                    {
-                        NetworkManager.Singleton.StartClient();
-                    }*/
                     GUILayout.TextField("IP");
                     _ip = GUILayout.TextField(_ip, new []{GUILayout.Width(200)});
                     transport.ConnectionData.Address = _ip;
@@ -65,11 +53,9 @@ namespace Network.UI.Buttons
                         //if (!_ip.IsIpv4()) { _textButton = "Invalid IPv4";}
                         
                         NetworkManager.Singleton.StartClient();
-                            CustomManager.ChangeScene("Map");
+                        CustomManager.ChangeScene("Map");
                     }
                 }
-
-                // On gere l instance du joueur solo, desactive par default
             }
             else
             {

@@ -111,7 +111,7 @@ MonoBehaviour:
   minDist: 10
   CurrentDist: 15
   MaxDist: 25
-  TranslateSpeed: 100
+  TranslateSpeed: 10
   AngleH: 0
   AngleV: 0
 --- !u!114 &5573870678708412068
@@ -128,7 +128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkObject: {fileID: 6666115323047701113}
   ball: {fileID: 4511494888520205100}
-  Power: 0
 --- !u!1 &6670899196515078458
 GameObject:
   m_ObjectHideFlags: 0
