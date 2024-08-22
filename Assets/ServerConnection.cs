@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Game;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ServerConnection : NetworkBehaviour
 {
@@ -57,7 +55,7 @@ public class ServerConnection : NetworkBehaviour
         SetPlayerIdClientRpc(id);
     }
     
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void BallHitServerRpc()
     {
         Variable.DictPlayerScorePerHole[(uint)PlayerId!][Variable.CurrentHole] += 1;
