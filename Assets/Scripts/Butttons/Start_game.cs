@@ -1,7 +1,9 @@
+using Custom_scenes;
 using Game;
 using Interfaces;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Butttons
 {
@@ -23,7 +25,7 @@ namespace Butttons
 
         public void OnSceneChange(int index) // On ne veut afficher ce bouton que pour l'hote du lobby, pour le moment mis sur IsClient car par encore de variable pour savoir si on est l'hote
         {
-            gameObject.SetActive(NetworkManager.Singleton.IsClient);
+            gameObject.SetActive(Scenes.Menu == SceneManager.GetActiveScene() && NetworkManager.Singleton.IsClient);
         }
     }
 }

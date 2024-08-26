@@ -22,7 +22,7 @@ public class HitHandle : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!networkObject.IsOwner)
+        if (!networkObject.IsOwner || NetworkManager.Singleton.IsServer)
         {
             return;
         }
@@ -31,12 +31,12 @@ public class HitHandle : NetworkBehaviour
             Power -= Input.GetAxis("Mouse Y");
         if (!Input.GetMouseButtonUp(0)) return; //TODO : qppeler la fonction cote serveur, pas ici
         Debug.Log($"[CLIENT] player id ({servCo.PlayerId}) : sending ball hit with power {Power}");
-        HitServerRpc(gameObject.GetComponent<CamHandle>().AngleH, gameObject.GetComponent<CamHandle>().AngleV, Power);
+        HitServerRpc(gameObject.GetComponent<CamHandle>().AngleH, Power);
         
     }
     
     [ServerRpc]
-    public void HitServerRpc(float angleH, float angleV, float power)
+    public void HitServerRpc(float angleH, float power)
     {
         ball.GetComponent<Rigidbody>().AddForce(
             new Vector3(
