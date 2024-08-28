@@ -22,8 +22,7 @@ namespace Butttons
         // Update is called once per frame
         void Update()
         {
-            button.interactable = true;
-            // seem to dont work ?? => (NetworkManager.Singleton.IsHost
+            button.interactable = (NetworkManager.Singleton.IsHost);
             // /*  commented out for now || Variable.DictPlayersId.Count > 1*/);
         }
         
