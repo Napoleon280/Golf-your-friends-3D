@@ -3,6 +3,7 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using Game;
+using UnityEngine.SceneManagement;
 
 namespace Game.Objects
 {
@@ -30,18 +31,18 @@ namespace Game.Objects
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsHost)
             {
                 // Acces au bouton pour host 
-                if (GUILayout.Button("Host"))
-                {
-                    //Debug.Log(Scenes.Map);
-                    CustomManager.ChangeScene("Map");
-                    ServerGameHandling.Initializing();
-                    ServerGameHandling.StartGameServerRpc();
-                    NetworkManager.Singleton.StartHost();
-                }
+                
 
                 // Si on est dans le menu, on a acces au bouton pour etre client
-                if (Variable.SceneCurrent == Scenes.Menu)
+                if (Variable.SceneCurrent == "Menu")
                 {
+                    if (GUILayout.Button("Host"))
+                    {
+                        //Debug.Log(Scenes.Map);
+                        ServerGameHandling.Initializing();
+                        Debug.Log(NetworkManager.Singleton.StartHost());
+                    }
+                    
                     GUILayout.TextField("Pseudo");
                     ServerConnection.PlayerName = GUILayout.TextField(ServerConnection.PlayerName, new []{GUILayout.Width(200)});
                     GUILayout.TextField("IP");
@@ -55,7 +56,6 @@ namespace Game.Objects
                         //if (!_ip.IsIpv4()) { _textButton = "Invalid IPv4";}
                         
                         NetworkManager.Singleton.StartClient();
-                        CustomManager.ChangeScene("Map");
                     }
                 }
             }
@@ -70,12 +70,13 @@ namespace Game.Objects
                     GUILayout.Label($"Connected : {NetworkManager.Singleton.ConnectedClients.Count}");
 
                     // Bouton pour arreter le serveur
-                    /*if (GUILayout.Button("Menu"))
+                    if (GUILayout.Button("Menu"))
                     {
-                        NetworkManager.Singleton.Shutdown();
-                        // TODO : savegame
-                        ChangeScene("Menu");
-                    }*/
+                        //TODO : reset game (dico des coups et reset position des player), change scene to menu
+                        //NetworkManager.Singleton.Shutdown();
+                        // oldTODO : savegame
+                        //ChangeScene("Menu");
+                    }
                 }
                 // Si on est client
                 else if (NetworkManager.Singleton.IsClient)

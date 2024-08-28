@@ -1,18 +1,18 @@
 using Game;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class CamHandle : NetworkBehaviour
 {
     public NetworkObject networkObject;
     public Transform ball;
-    public float minDist;
-    public static bool freeCam;
+    public bool freeCam;
+    public bool escFocus;
 
     public float CurrentDist, MaxDist, TranslateSpeed, AngleH, AngleV;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         if (!networkObject.IsOwner)
         {
@@ -20,9 +20,12 @@ public class CamHandle : NetworkBehaviour
             gameObject.GetComponent<AudioListener>().enabled = false;
             return;
         }
+        freeCam = false;
+        escFocus = false;
+        Debug.Log("CamHandle Awake");
+        if (Variable.SceneCurrent != "Map") return;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        
     }
 
     // Update is called once per frame
@@ -46,35 +49,50 @@ public class CamHandle : NetworkBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        switch (escFocus)
         {
-            freeCam = !freeCam;
-        }
-
-        if (freeCam)
-        {
-            if (Input.GetKey(KeyCode.W))
-            {
-                transform.position +=  transform.forward * (Time.deltaTime * 5);
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                transform.position -=  transform.forward * (Time.deltaTime * 5);
-            }
-            /*if (Input.GetKey(KeyCode.D))
-            {
-                transform.position += (Time.deltaTime * 5);
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.position -= Quaternion.AngleAxis(-90, Vector3.up) * transform.forward * (Time.deltaTime * 5);
-            }*/
-            transform.rotation = Quaternion.Euler(AngleV*10, AngleH*10, 0);
+            case true:
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    escFocus = !escFocus;
+                }
+                break;
+            case false:
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    freeCam = !freeCam;
+                }
+                
+                if (freeCam)
+                {
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        transform.position +=  transform.forward * (Time.deltaTime * 5);
+                    }
+                    if (Input.GetKey(KeyCode.S))
+                    {
+                        transform.position -=  transform.forward * (Time.deltaTime * 5);
+                    }
+                    /*if (Input.GetKey(KeyCode.D))
+                    {
+                        transform.position += (Time.deltaTime * 5);
+                    }
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        transform.position -= Quaternion.AngleAxis(-90, Vector3.up) * transform.forward * (Time.deltaTime * 5);
+                    }*/
+                    transform.rotation = Quaternion.Euler(AngleV*10, AngleH*10, 0);
             
-            return;
+                    return;
+                }
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    escFocus = !escFocus;
+                }
+                Vector3 tmp = Quaternion.Euler(0,-AngleH,AngleV) * (new Vector3(-CurrentDist, 0, 0)) + ball.position;
+                transform.position = tmp;
+                transform.LookAt(ball);
+                break;
         }
-        Vector3 tmp = Quaternion.Euler(0,-AngleH,AngleV) * (new Vector3(-CurrentDist, 0, 0)) + ball.position;
-        transform.position = tmp;
-        transform.LookAt(ball);
     }
 }

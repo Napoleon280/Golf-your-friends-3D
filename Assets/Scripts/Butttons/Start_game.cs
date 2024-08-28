@@ -4,11 +4,13 @@ using Interfaces;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Butttons
 {
     public class Start_game : MonoBehaviour, ICallOnSceneChange
     {
+        public Button button;
         // Start is called before the first frame update
         void Start()
         {
@@ -20,12 +22,22 @@ namespace Butttons
         // Update is called once per frame
         void Update()
         {
+            button.interactable = true;
+            // seem to dont work ?? => (NetworkManager.Singleton.IsHost
+            // /*  commented out for now || Variable.DictPlayersId.Count > 1*/);
+        }
         
+        
+        public void StartGameOnClick()
+        { 
+            //TODO : if lobby leader
+            CustomManager.ChangeScene("Map");
+            ServerGameHandling.StartGameServerRpc();
         }
 
         public void OnSceneChange(int index) // On ne veut afficher ce bouton que pour l'hote du lobby, pour le moment mis sur IsClient car par encore de variable pour savoir si on est l'hote
         {
-            gameObject.SetActive(Scenes.Menu == SceneManager.GetActiveScene() && NetworkManager.Singleton.IsClient);
+            gameObject.SetActive("Menu" == SceneManager.GetActiveScene().name && NetworkManager.Singleton.IsClient);
         }
     }
 }

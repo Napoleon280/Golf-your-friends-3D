@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Objects
 {
-    public class DontDestroyOnLoad : MonoBehaviour, ICallOnSceneChange
+    public class DontDestroyExceptMenu : MonoBehaviour, ICallOnSceneChange
     {
         private GameObject _gameObject;
     
@@ -19,7 +19,7 @@ namespace Game.Objects
 
         public void OnSceneChange(int index)
         {
-            if (Variable.SceneCurrent != Scenes.Menu) return;
+            if (Variable.SceneCurrent != "Menu" ) return;
         
             Variable.ListToCallOnSceneChange.RemoveAt(index);
             Destroy(_gameObject);

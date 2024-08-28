@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Custom_scenes;
 using Game;
 using Unity.Netcode;
 using UnityEngine;
@@ -16,17 +17,20 @@ public class ServerConnection : NetworkBehaviour
         {
             return;
         }
+        Debug.Log("Hey Im the player prefab");
         AddPlayerServerRpc(PlayerName);
     }
     
     [ClientRpc]
     public void SetPlayerIdClientRpc(uint id)
     {
+        Debug.Log("[CLIENT]SetPlayerIdClientRpc");
         if (!networkObj.IsOwner)
         {
             return;
         }
         PlayerId ??= id;
+        Debug.Log("[CLIENT]PlayerId: " + PlayerId);
     }
     
     [ClientRpc]
@@ -37,6 +41,7 @@ public class ServerConnection : NetworkBehaviour
             return;
         }
         if (PlayerId is not null) return;
+        Debug.LogError("[CLIENT]NameTakenOrInvalidClientRpc : Ce nom est deja pris ou invalide");
         PlayerName = "";
         NetworkManager.Singleton.Shutdown();
     }
@@ -61,6 +66,24 @@ public class ServerConnection : NetworkBehaviour
     {
         Variable.DictPlayerScorePerHole[(uint)PlayerId!][Variable.CurrentHole] += 1;
         Debug.Log("[SERVER]Player " + (uint)PlayerId + " score: " + Variable.DictPlayerScorePerHole[(uint)PlayerId][Variable.CurrentHole]);
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void ResetServerRpc()
+    {
+        Variable.DictPlayerScorePerHole = new Dictionary<uint, Dictionary<uint, uint>>();;
+        Debug.Log("[SERVER]DictPlayerScorePerHole resetted.");
+    }
+    
+    [ClientRpc]
+    public void ResetClientRpc()
+    {
+        if (!networkObj.IsOwner)
+        {
+            return;
+        }
+        CustomManager.ChangeScene("Menu");
+        Debug.Log("[CLIENT]Client resetted.");
     }
 
     // Update is called once per frame

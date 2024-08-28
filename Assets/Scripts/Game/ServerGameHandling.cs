@@ -9,8 +9,10 @@ namespace Game
         [ServerRpc]
         public static void Initializing()
         {
+            Debug.Log("[SERVER]Initializing");
             Variable.DictPlayersId = new Dictionary<string, uint>();
             Variable.DictPlayerScorePerHole = new Dictionary<uint, Dictionary<uint, uint>>();
+            Debug.Log("[SERVER]Initialized");
         }
         
         [ServerRpc]
