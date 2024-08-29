@@ -16,7 +16,6 @@ namespace Butttons
         {
             Variable.ListToCallOnSceneChange ??= new System.Collections.Generic.List<ICallOnSceneChange>();
             Variable.ListToCallOnSceneChange.Add(this);
-        
         }
 
         // Update is called once per frame
@@ -30,13 +29,12 @@ namespace Butttons
         public void StartGameOnClick()
         { 
             //TODO : if lobby leader
-            CustomManager.ChangeScene("Map");
             ServerGameHandling.StartGameServerRpc();
         }
 
         public void OnSceneChange(int index) // On ne veut afficher ce bouton que pour l'hote du lobby, pour le moment mis sur IsClient car par encore de variable pour savoir si on est l'hote
         {
-            gameObject.SetActive("Menu" == SceneManager.GetActiveScene().name && NetworkManager.Singleton.IsClient);
+            gameObject.SetActive("Menu" == SceneManager.GetActiveScene().name);
         }
     }
 }

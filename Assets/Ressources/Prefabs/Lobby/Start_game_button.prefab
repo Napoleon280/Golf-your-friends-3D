@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dafed76813c48dbe94f9d4e90079ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serverConnection: {fileID: 0}
   button: {fileID: 3763192624968197907}
 --- !u!1 &4192456889016918816
 GameObject:
@@ -366,4 +367,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dafed76813c48dbe94f9d4e90079ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serverConnection: {fileID: 4923120025603184466, guid: 38842fb0cf2404c45acb8450105fefbe, type: 3}
   button: {fileID: 3763192624968197907}

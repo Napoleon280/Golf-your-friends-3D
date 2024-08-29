@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Custom_scenes;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,10 +10,8 @@ namespace Game
         [ServerRpc]
         public static void Initializing()
         {
-            Debug.Log("[SERVER]Initializing");
             Variable.DictPlayersId = new Dictionary<string, uint>();
             Variable.DictPlayerScorePerHole = new Dictionary<uint, Dictionary<uint, uint>>();
-            Debug.Log("[SERVER]Initialized");
         }
         
         [ServerRpc]
@@ -23,6 +22,13 @@ namespace Game
             {
                 Variable.DictPlayerScorePerHole[VARIABLE] = new Dictionary<uint, uint>() {[Variable.CurrentHole] = 0};
             }
+            StartGameClientRpc();
+        }
+        [ClientRpc]
+        public static void StartGameClientRpc()
+        {
+            CustomManager.ChangeScene("Map");
+            Debug.LogError("[CLIENT]Client received StartGameRpc.");
         }
         
         [ServerRpc]

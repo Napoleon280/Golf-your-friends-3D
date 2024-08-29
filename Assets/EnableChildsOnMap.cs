@@ -10,21 +10,18 @@ public class EnableChildsOnMap : NetworkBehaviour, ICallOnSceneChange
     // Start is called before the first frame update
     void Start()
     {
+        OnSceneChange(0);
         if (!networkObject.IsOwner)
         {
             return;
         }
         Variable.ListToCallOnSceneChange ??= new System.Collections.Generic.List<ICallOnSceneChange>();
         Variable.ListToCallOnSceneChange.Add(this);
-        OnSceneChange(0);
+        
     }
     
     public void OnSceneChange(int i)
     {
-        if (!networkObject.IsOwner)
-        {
-            return;
-        }
         //Debug.Log("OnSceneChange to enable childs (" + transform.childCount + " childs)");
         for (int j = transform.childCount - 1; j >= 0; j--)
         {

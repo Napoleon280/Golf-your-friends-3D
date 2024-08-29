@@ -137,6 +137,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4812482569471766322, guid: 0cbc54e62173eefd8b9c7a06290eaa15, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1131399869
+      objectReference: {fileID: 0}
     - target: {fileID: 6675596113724071587, guid: 0cbc54e62173eefd8b9c7a06290eaa15, type: 3}
       propertyPath: m_Name
       value: Connected_players_list

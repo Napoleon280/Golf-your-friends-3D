@@ -108,7 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkObject: {fileID: 6666115323047701113}
   ball: {fileID: 4511494888520205100}
-  minDist: 10
+  freeCam: 0
+  escFocus: 0
   CurrentDist: 15
   MaxDist: 25
   TranslateSpeed: 10
