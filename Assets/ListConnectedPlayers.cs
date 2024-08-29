@@ -10,7 +10,7 @@ public class ListConnectedPlayers : NetworkBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        if (!NetworkManager.Singleton.IsServer)
+        if (NetworkManager.Singleton.IsServer)
         {
             return;
         }
