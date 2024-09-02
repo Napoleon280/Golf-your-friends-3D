@@ -49,14 +49,14 @@ public class ServerConnection : NetworkBehaviour
     [ServerRpc]
     public void AddPlayerServerRpc(string playerName)
     {
-        if (playerName== "" || Variable.DictPlayersId.ContainsKey(playerName))
+        if (playerName== "" || Variable.DictPlayersIdServer.ContainsKey(playerName))
         {
             NameTakenOrInvalidClientRpc();
             return;
         }
-        uint id = (uint)Variable.DictPlayersId.Count;
+        uint id = (uint)Variable.DictPlayersIdServer.Count;
         PlayerId = id;
-        Variable.DictPlayersId[playerName] = id;
+        Variable.DictPlayersIdServer[playerName] = id;
         Variable.DictPlayerScorePerHole[id] = new Dictionary<uint, uint>() {[Variable.CurrentHole] = 0};
         SetPlayerIdClientRpc(id);
     }

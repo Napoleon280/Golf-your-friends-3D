@@ -73,9 +73,9 @@ namespace Game.Objects
                     if (GUILayout.Button("Menu"))
                     {
                         //TODO : reset game (dico des coups et reset position des player), change scene to menu
-                        //NetworkManager.Singleton.Shutdown();
+                        NetworkManager.Singleton.Shutdown();
                         // oldTODO : savegame
-                        //ChangeScene("Menu");
+                        CustomManager.ChangeScene("Menu");
                     }
                 }
                 // Si on est client

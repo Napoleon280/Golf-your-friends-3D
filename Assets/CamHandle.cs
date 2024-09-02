@@ -9,6 +9,7 @@ public class CamHandle : NetworkBehaviour
     public Transform ball;
     public bool freeCam;
     public bool escFocus;
+    public NetworkVariable<bool> isSpec = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Owner, NetworkVariableWritePermission.Server);
 
     public float CurrentDist, MaxDist, TranslateSpeed, AngleH, AngleV;
     // Start is called before the first frame update
@@ -52,8 +53,8 @@ public class CamHandle : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             escFocus = !escFocus;
-            gameObject.GetComponent<Camera>().enabled = escFocus;
-            gameObject.GetComponent<AudioListener>().enabled = escFocus;
+            Cursor.visible = escFocus;
+            Cursor.lockState = escFocus ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
 
@@ -63,7 +64,7 @@ public class CamHandle : NetworkBehaviour
             freeCam = !freeCam;
         }
             
-        if (freeCam)
+        if (freeCam || isSpec.Value)
         {
             if (Input.GetKey(KeyCode.W))
             {

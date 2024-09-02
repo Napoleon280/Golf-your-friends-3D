@@ -12,10 +12,6 @@ public class EnableChildsOnMap : NetworkBehaviour, ICallOnSceneChange
     void Start()
     {
         OnSceneChange(0);
-        if (!networkObject.IsOwner)
-        {
-            return;
-        }
         Variable.ListToCallOnSceneChange ??= new System.Collections.Generic.List<ICallOnSceneChange>();
         Variable.ListToCallOnSceneChange.Add(this);
         
@@ -28,7 +24,8 @@ public class EnableChildsOnMap : NetworkBehaviour, ICallOnSceneChange
         //{
             //Debug.Log("Child " + j + " is active : " + (Variable.SceneCurrent == "Map"));
             transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(Variable.SceneCurrent == "Map");
-            transform.GetChild(1).GetComponent<Camera>().enabled = Variable.SceneCurrent == "Map";
+            transform.GetChild(1).GetComponent<Camera>().enabled = (networkObject.IsOwner && Variable.SceneCurrent == "Map");
+            transform.GetChild(1).GetComponent<AudioListener>().enabled = (networkObject.IsOwner && Variable.SceneCurrent == "Map");
         //}
         
     }

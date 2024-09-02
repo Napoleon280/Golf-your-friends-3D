@@ -18,9 +18,11 @@ public class ClientHitHandle : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        _camHandle = gameObject.GetComponent<CamHandle>();
         if (!NetworkManager.Singleton.IsServer) return;
         _ballRb = ball.GetComponent<Rigidbody>();
-        _camHandle = gameObject.GetComponent<CamHandle>();
+        
     }
 
     // Update is called once per frame
@@ -39,7 +41,7 @@ public class ClientHitHandle : NetworkBehaviour
     [ServerRpc]
     public void HitServerRpc(float angleH, float power)
     {
-        if (_ballRb.velocity.magnitude > 0.1f)
+        if (_ballRb.velocity.magnitude > 0.1f || _camHandle.isSpec.Value)
         {
             return;
         }

@@ -26,9 +26,13 @@ namespace Game
             return retour;
         }
 
-        public static Dictionary<string, uint> DictPlayersId;
+        public static Dictionary<string, uint> DictPlayersIdServer;
+        public static Dictionary<string, uint> DictPlayersIdClient;
+        public static Dictionary<uint, bool> DictIdHoleFinished;
 
         public static uint CurrentHole;
+
+        public static bool SendStartGame = false;
 
 
     }

@@ -1,57 +1,21 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Game;
-using Unity.Netcode;
 using UnityEngine;
 
-public class ListConnectedPlayers : NetworkBehaviour
+public class ListConnectedPlayers : MonoBehaviour
 {
     // Start is called before the first frame update
     private void Start()
     {
-        if (NetworkManager.Singleton.IsServer)
-        {
-            return;
-        }
-        Variable.DictPlayersId = new Dictionary<string, uint>();
-    }
-
-    private void OnConnectedToServer()
-    {
-        OnConnectedToServerRpc();
-    }
-
-    [ServerRpc]
-    void OnConnectedToServerRpc()
-    {
-        ResetListClientRpc();
-        foreach (var VARIABLE in Variable.DictPlayersId.Keys)
-        {
-            AddPlayerClientRpc(VARIABLE, Variable.DictPlayersId[VARIABLE]);
-        }
+        Variable.DictPlayersIdClient = new Dictionary<string, uint>();
     }
     
-    [ClientRpc]
-    public void ResetListClientRpc()
-    {
-        Variable.DictPlayersId = new Dictionary<string, uint>();
-    }
-    
-    [ClientRpc]
-    public void AddPlayerClientRpc(string playerName, uint id)
-    {
-        Variable.DictPlayersId[playerName] = id;
-    }
-
-
     // Update is called once per frame
     void OnGUI()
     {
-        Debug.Log("OnGUI ListConnectedPlayers.cs");
         GUILayout.BeginArea(new Rect(1500, 100, 100, 300));
         GUILayout.Label("Players");
-        foreach (var VARIABLE in Variable.DictPlayersId.Keys)
+        foreach (var VARIABLE in Variable.DictPlayersIdClient.Keys)
         {
             GUILayout.Label(VARIABLE);
         }
@@ -59,9 +23,9 @@ public class ListConnectedPlayers : NetworkBehaviour
         
         GUILayout.BeginArea(new Rect(1601, 100, 50, 300));
         GUILayout.Label("Id");
-        foreach (var VARIABLE in Variable.DictPlayersId.Keys)
+        foreach (var VARIABLE in Variable.DictPlayersIdClient.Keys)
         {
-            GUILayout.Label(Variable.DictPlayersId[VARIABLE].ToString());
+            GUILayout.Label(Variable.DictPlayersIdClient[VARIABLE].ToString());
         }
         GUILayout.EndArea();
         

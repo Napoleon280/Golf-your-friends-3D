@@ -110,6 +110,8 @@ MonoBehaviour:
   ball: {fileID: 4511494888520205100}
   freeCam: 0
   escFocus: 0
+  isSpec:
+    m_InternalValue: 0
   CurrentDist: 15
   MaxDist: 25
   TranslateSpeed: 10
@@ -143,6 +145,7 @@ GameObject:
   - component: {fileID: 4923120025603184466}
   - component: {fileID: 1787333513220905151}
   - component: {fileID: 250017755761059811}
+  - component: {fileID: 119634708370609950}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -226,6 +229,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b0476bfcb44bb9a504c998a7c0c4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &119634708370609950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670899196515078458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ad249231bc2ee24832629ab61e45fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkObject: {fileID: 6666115323047701113}
 --- !u!1001 &3448425622400201109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -242,6 +258,14 @@ PrefabInstance:
       propertyPath: SyncRotAngleZ
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2876851117040512831, guid: 2c8702920c27aabc3a55852cb2d860ed, type: 3}
+      propertyPath: camHandle
+      value: 
+      objectReference: {fileID: 6232542990896191559}
+    - target: {fileID: 2876851117040512831, guid: 2c8702920c27aabc3a55852cb2d860ed, type: 3}
+      propertyPath: networkObject
+      value: 
+      objectReference: {fileID: 6666115323047701113}
     - target: {fileID: 2974580436580352156, guid: 2c8702920c27aabc3a55852cb2d860ed, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 4262916719
