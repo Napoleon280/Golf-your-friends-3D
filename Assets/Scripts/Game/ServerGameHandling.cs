@@ -9,27 +9,33 @@ namespace Game
         [ServerRpc]
         public static void Initializing()
         {
-            Variable.DictPlayersId = new Dictionary<string, uint>();
+            Variable.DictPlayersIdServer = new Dictionary<string, uint>();
             Variable.DictPlayerScorePerHole = new Dictionary<uint, Dictionary<uint, uint>>();
+            Variable.DictIdHoleFinished = new Dictionary<uint, bool>();
         }
         
         [ServerRpc]
         public static void StartGameServerRpc()
         {
+            Variable.SendStartGame = true;
             Variable.CurrentHole = 1;
-            foreach (var VARIABLE in Variable.DictPlayersId.Values)
+            foreach (var VARIABLE in Variable.DictPlayersIdServer.Values)
             {
                 Variable.DictPlayerScorePerHole[VARIABLE] = new Dictionary<uint, uint>() {[Variable.CurrentHole] = 0};
+                Variable.DictIdHoleFinished[Variable.CurrentHole] = false;
             }
         }
+        
         
         [ServerRpc]
         public static void NextHoleServerRpc()
         {
             Variable.CurrentHole++;
-            foreach (var VARIABLE in Variable.DictPlayersId.Values)
+            foreach (var VARIABLE in Variable.DictPlayersIdServer.Values)
             {
                 Variable.DictPlayerScorePerHole[VARIABLE] = new Dictionary<uint, uint>() {[Variable.CurrentHole] = 0};
+                Variable.DictIdHoleFinished[Variable.CurrentHole] = false;
+                //reset position des joueurs au trou suivant
             }
         }
         
