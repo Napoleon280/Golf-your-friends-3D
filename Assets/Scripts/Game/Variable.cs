@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Interfaces;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Game
@@ -7,7 +8,8 @@ namespace Game
     public static class Variable
     {
         public static List<ICallOnSceneChange> ListToCallOnSceneChange;
-        public static Scene SceneCurrent => SceneManager.GetActiveScene();
+    
+        public static string SceneCurrent = "Menu";
 
         public static Dictionary<uint, Dictionary<uint, uint>> DictPlayerScorePerHole;
         public static uint PlayerScoreHole(uint playerId, uint holeNumber)
@@ -24,9 +26,13 @@ namespace Game
             return retour;
         }
 
-        public static Dictionary<string, uint> DictPlayersId;
+        public static Dictionary<string, uint> DictPlayersIdServer;
+        public static Dictionary<string, uint> DictPlayersIdClient;
+        public static Dictionary<uint, bool> DictIdHoleFinished;
 
         public static uint CurrentHole;
+
+        public static bool SendStartGame = false;
 
 
     }
